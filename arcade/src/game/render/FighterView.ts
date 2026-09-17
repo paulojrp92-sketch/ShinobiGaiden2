@@ -6,11 +6,11 @@ export function makeFighterTexture(scene:Phaser.Scene,c:CharacterDefinition):str
  const key="fighter-"+c.id;if(scene.textures.exists(key))return key;
  const g=scene.make.graphics({x:0,y:0});
  const rect=(color:number,x:number,y:number,w:number,h:number)=>g.fillStyle(color).fillRect(x,y,w,h);
- rect(0x111721,10,6,14,13);rect(c.skin,13,8,11,9);rect(c.hair,10,3,15,7);rect(c.accent,10,8,15,3);
- rect(0x111721,21,12,3,2);rect(c.body,8,18,16,15);rect(c.accent,7,19,19,3);rect(0x101926,10,31,6,8);rect(0x101926,19,30,6,9);
- rect(0x858e82,8,38,9,2);rect(0x858e82,19,38,9,2);rect(c.skin,23,22,5,9);rect(c.body,5,21,6,11);rect(c.accent,8,30,16,3);
- if(c.shield){rect(0x172422,23,18,9,17);rect(0xa7ac95,24,19,7,15);rect(0x394945,26,21,3,11);rect(c.accent,25,25,5,3);}
- else{rect(c.accent,3,16,9,4);rect(c.accent,0,19,8,3);}
+ rect(0x111721,10,6,14,13);rect(c.palette.skin,13,8,11,9);rect(c.palette.hair,10,3,15,7);rect(c.palette.accent,10,8,15,3);
+ rect(0x111721,21,12,3,2);rect(c.palette.body,8,18,16,15);rect(c.palette.accent,7,19,19,3);rect(0x101926,10,31,6,8);rect(0x101926,19,30,6,9);
+ rect(0x858e82,8,38,9,2);rect(0x858e82,19,38,9,2);rect(c.palette.skin,23,22,5,9);rect(c.palette.body,5,21,6,11);rect(c.palette.accent,8,30,16,3);
+ if(c.shield){rect(0x172422,23,18,9,17);rect(0xa7ac95,24,19,7,15);rect(0x394945,26,21,3,11);rect(c.palette.accent,25,25,5,3);}
+ else{rect(c.palette.accent,3,16,9,4);rect(c.palette.accent,0,19,8,3);}
  g.generateTexture(key,34,42);g.destroy();return key;
 }
 export class FighterView {
