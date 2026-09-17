@@ -1,0 +1,4 @@
+import test from "node:test";import assert from "node:assert/strict";
+import {Simulation} from "../src/game/systems/Simulation";import y from "../src/game/data/characters/yokubari";import k from "../src/game/data/characters/kagari";import {stages} from "../src/game/data/stages";import {neutralInput} from "../src/game/types";
+test("run and jump land on terrain",()=>{const s=new Simulation([y,k],stages[0]);const a=neutralInput();a.axis=1;for(let i=0;i<20;i++)s.step([a,neutralInput()]);assert.ok(s.fighters[0].x>490);a.axis=0;a.pressed=["jump"];s.step([a,neutralInput()]);assert.equal(s.fighters[0].state,"JUMP");a.pressed=[];for(let i=0;i<120;i++)s.step([a,neutralInput()]);assert.ok(s.fighters[0].grounded);});
+test("facing follows opponent across positions",()=>{const s=new Simulation([y,k],stages[0]);s.fighters[0].x=950;s.step([neutralInput(),neutralInput()]);assert.equal(s.fighters[0].facing,-1);assert.equal(s.fighters[1].facing,1);});
