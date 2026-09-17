@@ -1,0 +1,26 @@
+name: Arcade validation
+on:
+  push:
+    branches: [codex/shinobi-gaiden-arcade]
+    paths: ['arcade/**', '.github/workflows/arcade.yml']
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: arcade
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm install --no-audit --no-fund
+      - run: npm test
+      - run: npm run build
+      - uses: actions/upload-artifact@v4
+        with:
+          name: shinobi-gaiden-arcade-build
+          path: arcade/dist
+          retention-days: 30
