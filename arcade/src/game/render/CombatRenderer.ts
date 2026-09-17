@@ -4,7 +4,7 @@ import {activeHitboxes} from "../combat/CombatManager";
 export class CombatRenderer {
  readonly graphics:Phaser.GameObjects.Graphics;private flashes:{x:number;y:number;life:number;power:number}[]=[];
  constructor(scene:Phaser.Scene){this.graphics=scene.add.graphics().setDepth(90);}
- effects(sim:Simulation):void{for(const e of sim.events)if(e.type==="hit"||e.type==="ko")this.flashes.push({x:e.x,y:e.y,life:12,power:e.power});}
+ effects(sim:Simulation):void{for(const e of sim.events)if(e.type==="hit"||e.type==="ko"||e.type==="block"||e.type==="parry")this.flashes.push({x:e.x,y:e.y,life:12,power:e.power});}
  render(sim:Simulation,boxes:boolean):void{const g=this.graphics;g.clear();
  for(const f of sim.fighters){const a=f.current;if(a){const active=a.frame>a.definition.startupFrames&&a.frame<=a.definition.startupFrames+a.definition.activeFrames;
  g.lineStyle(active?5:2,active?0xffcd87:0xc9baa1,active?.8:.25);if(active)g.beginPath().arc(f.x+f.facing*32,f.y-45,50,f.facing>0?-1.3:1.85,f.facing>0?1.3:4.45,false).strokePath();}

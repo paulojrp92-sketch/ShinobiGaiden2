@@ -11,6 +11,7 @@ export class Simulation {
  step(inputs:[InputFrame,InputFrame]):void{if(this.paused)return;this.frame++;this.events.length=0;this.combat.combos.tick(this.fighters);
   for(const f of this.fighters){const frozen=f.freeze>0,other=this.fighters[1-f.id];tickFighter(f,other,inputs[f.id],this.events);if(!frozen){const ground=f.grounded;moveFighter(f,inputs[f.id],this.stage);if(ground&&!f.grounded&&f.vy<0)this.events.push({type:"jump",x:f.x,y:f.y,power:0,owner:f.id});if(!ground&&f.grounded)this.events.push({type:"land",x:f.x,y:f.y,power:0,owner:f.id});}}
   const [a,b]=this.fighters;if(overlaps(a.body,b.body)){const sign=a.x<=b.x?1:-1,penetration=(a.definition.collision.width+b.definition.collision.width)/2-Math.abs(a.x-b.x);a.x-=sign*penetration/2;b.x+=sign*penetration/2;}
+  for(const f of this.fighters)f.x=Math.max(22,Math.min(this.stage.width-22,f.x));
   this.combat.resolve(this.fighters,this.events);
  }
  reset():void{for(let i=0;i<2;i++)this.fighters[i]=new Fighter(i,this.definitions[i],this.stage.spawns[i],this.stage.floor);}
